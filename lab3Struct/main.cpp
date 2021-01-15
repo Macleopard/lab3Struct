@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 using namespace std;
 
 template <class T>
@@ -97,23 +98,32 @@ int indexOf(string inp, char c) { // поиск первого вхождения символа
 	return index;
 }
 
-int main() {
-	comp<char>* stack = NULL;
+bool checkString(string text, comp<char>* stack) {
 	string check = "()[]{}";
-	string test = "";
-	ifstream in("input.txt");
-	for (int i = 0; i < test.size(); i++) {
-		if (indexOf(check, test[i]) % 2 == 0) { // если открытая скобка
-			push(&stack, test[i]);
+	for (int i = 0; i < text.size(); i++) {
+		if (indexOf(check, text[i]) % 2 == 0) { // если открытая скобка
+			push(&stack, text[i]);
 		}
-		else if (indexOf(check, test[i]) % 2 == 1) // если закрытая скобка
+		else if (indexOf(check, text[i]) % 2 == 1) // если закрытая скобка
 		{
-			if ((indexOf(check, test[i]) - indexOf(check, peek(stack))) == 1) {
+			if ((indexOf(check, text[i]) - indexOf(check, peek(stack))) == 1) {
 				pop(&stack);
 			}
 		}
 	}
-	cout << "stack count: " << count(stack) << endl;
+	return count(stack) == 0;
+}
+
+int main() {
+	comp<char>* stack = NULL;
+	string line = "", text = "";
+	ifstream in("input.txt");
+	if (in.is_open()) {
+		while (getline(in, line)) {
+			text += line;
+		}
+	}
+	cout << "text is correct?: " << boolalpha <<checkString(text, stack) << endl;
 	system("pause");
 	return 0;
 }
