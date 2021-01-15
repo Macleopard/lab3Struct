@@ -30,15 +30,11 @@ void del(comp<T>** top, T D) {
 		if (q->data == D) { // если мы нашли число
 			if (q == *top) { // если указатель равен вершине
 				*top = q->next; // передвигаем вершину на следующий элемент
-				free(q);
-				q->data = NULL; // обнул€ем данные
-				q->next = NULL;
+				delete q;
 			}
 			else { // если элемент находитс€ не сверху
 				prev->next = q->next;
-				free(q);
-				q->data = NULL;
-				q->next = NULL;
+				delete q;
 			}
 		}
 		prev = q;// запоминаем €чейку как предыдущую 
@@ -51,6 +47,8 @@ T peek(comp<T>* top) {
 	comp<T>* q = top;
 	if (q)
 		return q->data;
+	else
+		return NULL;
 }
 
 template <class T>
@@ -60,9 +58,7 @@ T pop(comp<T>** top) {
 	if (q != NULL) {
 		 res = q->data;
 		*top = q->next;
-		free(q);
-		q->data = NULL;
-		q->next = NULL;
+		delete q;
 	}
 	return res;
 }
