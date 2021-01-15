@@ -13,7 +13,7 @@ template <class T>
 void push(comp<T>** top, T D) {
 	comp<T>* newElem = new comp<T>();
 	newElem->data = D;
-	if (top == NULL) { // Если вершины нет, то стек пустой
+	if (top == nullptr) { // Если вершины нет, то стек пустой
 		top = &newElem;
 	}
 	else {
@@ -25,8 +25,8 @@ void push(comp<T>** top, T D) {
 template <class T>
 void del(comp<T>** top, T D) {
 	comp<T>* q = *top; // вершина стека
-	comp<T>* prev = NULL; // указатель на предыдущий элемент
-	while (q != NULL) {
+	comp<T>* prev = nullptr; // указатель на предыдущий элемент
+	while (q != nullptr) {
 		if (q->data == D) { // если мы нашли число
 			if (q == *top) { // если указатель равен вершине
 				*top = q->next; // передвигаем вершину на следующий элемент
@@ -55,7 +55,7 @@ template <class T>
 T pop(comp<T>** top) {
 	comp<T>* q = *top;
 	T res = NULL;
-	if (q != NULL) {
+	if (q != nullptr) {
 		 res = q->data;
 		*top = q->next;
 		delete q;
